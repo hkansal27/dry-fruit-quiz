@@ -1,0 +1,550 @@
+None selected 
+
+Skip to content
+Using Gmail with screen readers
+1 of 91,789
+QUIZ
+Inbox
+
+HIMANSHU KANSAL <himanshukansal27@gmail.com>
+2:26 PM (10 minutes ago)
+to HIMANSHU
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dry Fruit Quiz Time!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&family=Pacifico&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --green-deep: #1a3d2e;
+      --green-mid: #234d3a;
+      --gold: #e8c547;
+      --gold-soft: #f0d78c;
+      --cream: #faf6ee;
+      --white: #ffffff;
+      --shadow: rgba(0, 0, 0, 0.25);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family: "Nunito", system-ui, sans-serif;
+      background: linear-gradient(165deg, var(--green-deep) 0%, #0f281f 45%, var(--green-mid) 100%);
+      color: var(--white);
+      padding: 1.25rem;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+    }
+
+    .leaf {
+      position: fixed;
+      width: 120px;
+      height: 120px;
+      opacity: 0.35;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .leaf svg {
+      width: 100%;
+      height: 100%;
+      fill: var(--gold);
+    }
+
+    .leaf--tl { top: -10px; left: -10px; transform: rotate(-25deg); }
+    .leaf--tr { top: -10px; right: -10px; transform: rotate(25deg) scaleX(-1); }
+    .leaf--bl { bottom: -10px; left: -10px; transform: rotate(155deg); }
+    .leaf--br { bottom: -10px; right: -10px; transform: rotate(-155deg) scaleX(-1); }
+
+    .quiz-shell {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+
+    header h1 {
+      font-family: "Pacifico", cursive;
+      font-size: clamp(1.75rem, 6vw, 2.35rem);
+      color: var(--gold);
+      text-shadow: 0 2px 8px var(--shadow);
+      line-height: 1.3;
+    }
+
+    .tagline {
+      display: inline-block;
+      margin-top: 0.75rem;
+      padding: 0.45rem 1.25rem;
+      background: var(--white);
+      color: var(--green-deep);
+      font-weight: 800;
+      font-size: 0.85rem;
+      letter-spacing: 0.04em;
+      border-radius: 999px;
+    }
+
+    .card {
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(232, 197, 71, 0.35);
+      border-radius: 20px;
+      padding: 1.5rem 1.35rem 1.35rem;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 12px 40px var(--shadow);
+    }
+
+    .progress-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.25rem;
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--gold-soft);
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 6px;
+      margin-left: 1rem;
+      background: rgba(255, 255, 255, 0.15);
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-bar__fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--gold), var(--gold-soft));
+      border-radius: 999px;
+      transition: width 0.35s ease;
+    }
+
+    .question-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      background: var(--white);
+      color: var(--green-deep);
+      font-weight: 800;
+      border-radius: 50%;
+      margin-bottom: 0.75rem;
+      font-size: 0.95rem;
+    }
+
+    .question-text {
+      font-size: 1.15rem;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 1.25rem;
+    }
+
+    .options {
+      display: flex;
+      flex-direction: column;
+      gap: 0.65rem;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.85rem 1rem;
+      background: rgba(255, 255, 255, 0.06);
+      border: 2px solid rgba(255, 255, 255, 0.2);
+      border-radius: 12px;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s, transform 0.15s;
+    }
+
+    .option:hover {
+      background: rgba(255, 255, 255, 0.12);
+      border-color: var(--gold-soft);
+    }
+
+    .option input {
+      position: absolute;
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .option__marker {
+      flex-shrink: 0;
+      width: 1.25rem;
+      height: 1.25rem;
+      border: 2px solid var(--gold-soft);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .option input:checked + .option__marker {
+      border-color: var(--gold);
+      background: var(--gold);
+      box-shadow: inset 0 0 0 3px var(--green-deep);
+    }
+
+    .option:has(input:checked) {
+      border-color: var(--gold);
+      background: rgba(232, 197, 71, 0.15);
+    }
+
+    .option__label {
+      font-weight: 600;
+      font-size: 1rem;
+    }
+
+    .nav {
+      display: flex;
+      gap: 0.75rem;
+      margin-top: 1.5rem;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 0.85rem 1rem;
+      font-family: inherit;
+      font-size: 1rem;
+      font-weight: 800;
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      transition: transform 0.15s, opacity 0.2s;
+    }
+
+    .btn:active:not(:disabled) {
+      transform: scale(0.98);
+    }
+
+    .btn:disabled {
+      opacity: 0.45;
+      cursor: not-allowed;
+    }
+
+    .btn--ghost {
+      background: transparent;
+      color: var(--white);
+      border: 2px solid rgba(255, 255, 255, 0.45);
+    }
+
+    .btn--primary {
+      background: linear-gradient(180deg, var(--gold-soft), var(--gold));
+      color: var(--green-deep);
+    }
+
+    .panel--hidden {
+      display: none;
+    }
+
+    .results {
+      text-align: center;
+    }
+
+    .results h2 {
+      font-family: "Pacifico", cursive;
+      color: var(--gold);
+      font-size: 1.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .score-circle {
+      width: 140px;
+      height: 140px;
+      margin: 1.25rem auto;
+      border-radius: 50%;
+      background: var(--white);
+      color: var(--green-deep);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px var(--shadow);
+    }
+
+    .score-circle__value {
+      font-size: 2.5rem;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .score-circle__label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      opacity: 0.75;
+    }
+
+    .results-message {
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--gold-soft);
+    }
+
+    .review-list {
+      text-align: left;
+      max-height: 220px;
+      overflow-y: auto;
+      margin: 1rem 0 1.25rem;
+      padding-right: 0.25rem;
+    }
+
+    .review-item {
+      font-size: 0.85rem;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      line-height: 1.4;
+    }
+
+    .review-item.correct { color: #a8e6cf; }
+    .review-item.wrong { color: #ffb4b4; }
+
+    .hint {
+      font-size: 0.8rem;
+      color: rgba(255, 255, 255, 0.65);
+      margin-top: 0.5rem;
+      min-height: 1.2em;
+    }
+
+    .hint.warn {
+      color: var(--gold-soft);
+      font-weight: 700;
+    }
+  </style>
+</head>
+<body>
+  <div class="leaf leaf--tl" aria-hidden="true">
+    <svg viewBox="0 0 100 100"><path d="M50 5 C20 30 5 55 15 85 C35 70 70 75 95 50 C75 25 50 5 50 5Z"/></svg>
+  </div>
+  <div class="leaf leaf--tr" aria-hidden="true">
+    <svg viewBox="0 0 100 100"><path d="M50 5 C20 30 5 55 15 85 C35 70 70 75 95 50 C75 25 50 5 50 5Z"/></svg>
+  </div>
+  <div class="leaf leaf--bl" aria-hidden="true">
+    <svg viewBox="0 0 100 100"><path d="M50 5 C20 30 5 55 15 85 C35 70 70 75 95 50 C75 25 50 5 50 5Z"/></svg>
+  </div>
+  <div class="leaf leaf--br" aria-hidden="true">
+    <svg viewBox="0 0 100 100"><path d="M50 5 C20 30 5 55 15 85 C35 70 70 75 95 50 C75 25 50 5 50 5Z"/></svg>
+  </div>
+
+  <div class="quiz-shell">
+    <header>
+      <h1>Dry Fruit Quiz Time!</h1>
+      <p class="tagline">Think • Guess • Win</p>
+    </header>
+
+    <div class="card" id="quiz-panel">
+      <div class="progress-row">
+        <span id="progress-label">Question 1 of 10</span>
+        <div class="progress-bar" aria-hidden="true">
+          <div class="progress-bar__fill" id="progress-fill"></div>
+        </div>
+      </div>
+
+      <div class="question-num" id="question-num">1</div>
+      <p class="question-text" id="question-text"></p>
+
+      <div class="options" id="options" role="radiogroup" aria-labelledby="question-text"></div>
+
+      <p class="hint" id="hint" role="status"></p>
+
+      <div class="nav">
+        <button type="button" class="btn btn--ghost" id="btn-prev">Previous</button>
+        <button type="button" class="btn btn--primary" id="btn-next">Next</button>
+      </div>
+    </div>
+
+    <div class="card results panel--hidden" id="results-panel">
+      <h2>Quiz Complete!</h2>
+      <p class="results-message" id="results-message"></p>
+      <div class="score-circle">
+        <span class="score-circle__value" id="score-value">0</span>
+        <span class="score-circle__label">out of 10</span>
+      </div>
+      <div class="review-list" id="review-list"></div>
+      <button type="button" class="btn btn--primary" id="btn-retry" style="width: 100%;">Play Again</button>
+    </div>
+  </div>
+
+  <script>
+    const QUESTIONS = [
+      {
+        text: 'Which dry fruit is known as the "King of Nuts"?',
+        options: ['Cashew', 'Almond', 'Walnut', 'Pistachio'],
+        answer: 0,
+      },
+      {
+        text: 'Which dry fruit is richest in Omega-3 fatty acids?',
+        options: ['Almond', 'Walnut', 'Raisin', 'Cashew'],
+        answer: 1,
+      },
+      {
+        text: 'Which one helps in better sleep and reduces stress?',
+        options: ['Walnut', 'Almond', 'Peanut', 'Pistachio'],
+        answer: 1,
+      },
+      {
+        text: 'Which nut is best for brain health?',
+        options: ['Cashew', 'Walnut', 'Peanut', 'Pistachio'],
+        answer: 1,
+      },
+      {
+        text: 'Which dry fruit is the natural source of iron?',
+        options: ['Cashew', 'Raisin', 'Walnut', 'Pistachio'],
+        answer: 1,
+      },
+      {
+        text: 'Which one is good for your heart?',
+        options: ['Walnut', 'Potato chips', 'Candy', 'Soda'],
+        answer: 0,
+      },
+      {
+        text: 'Which dry fruit is actually a fruit (not a nut)?',
+        options: ['Almond', 'Cashew', 'Raisin', 'Walnut'],
+        answer: 2,
+      },
+      {
+        text: 'Which spice is called "Red Gold"?',
+        options: ['Turmeric', 'Saffron', 'Cinnamon', 'Clove'],
+        answer: 1,
+      },
+      {
+        text: 'Which dry fruit is high in calcium?',
+        options: ['Dried Fig', 'Potato', 'Rice', 'Corn'],
+        answer: 0,
+      },
+      {
+        text: 'Which one is most commonly used in Indian sweets?',
+        options: ['Cashew', 'Olive', 'Soybean', 'Barley'],
+        answer: 0,
+      },
+    ];
+
+    let currentIndex = 0;
+    const answers = new Array(QUESTIONS.length).fill(null);
+
+    const quizPanel = document.getElementById('quiz-panel');
+    const resultsPanel = document.getElementById('results-panel');
+    const questionNum = document.getElementById('question-num');
+    const questionText = document.getElementById('question-text');
+    const optionsEl = document.getElementById('options');
+    const progressLabel = document.getElementById('progress-label');
+    const progressFill = document.getElementById('progress-fill');
+    const hint = document.getElementById('hint');
+    const btnPrev = document.getElementById('btn-prev');
+    const btnNext = document.getElementById('btn-next');
+    const btnRetry = document.getElementById('btn-retry');
+
+    function renderQuestion() {
+      const q = QUESTIONS[currentIndex];
+      questionNum.textContent = currentIndex + 1;
+      questionText.textContent = q.text;
+      progressLabel.textContent = `Question ${currentIndex + 1} of ${QUESTIONS.length}`;
+      progressFill.style.width = `${((currentIndex + 1) / QUESTIONS.length) * 100}%`;
+
+      optionsEl.innerHTML = '';
+      q.options.forEach((label, i) => {
+        const id = `q${currentIndex}-opt${i}`;
+        const labelEl = document.createElement('label');
+        labelEl.className = 'option';
+        labelEl.innerHTML = `
+          <input type="radio" name="answer" id="${id}" value="${i}" ${answers[currentIndex] === i ? 'checked' : ''} />
+          <span class="option__marker" aria-hidden="true"></span>
+          <span class="option__label">${label}</span>
+        `;
+        labelEl.querySelector('input').addEventListener('change', (e) => {
+          answers[currentIndex] = Number(e.target.value);
+          hint.textContent = '';
+          hint.classList.remove('warn');
+        });
+        optionsEl.appendChild(labelEl);
+      });
+
+      btnPrev.disabled = currentIndex === 0;
+      btnNext.textContent = currentIndex === QUESTIONS.length - 1 ? 'See Score' : 'Next';
+      hint.textContent = '';
+      hint.classList.remove('warn');
+    }
+
+    function showResults() {
+      let score = 0;
+      const reviewHtml = QUESTIONS.map((q, i) => {
+        const chosen = answers[i];
+        const correct = chosen === q.answer;
+        if (correct) score += 1;
+        const chosenLabel = chosen !== null ? q.options[chosen] : '(no answer)';
+        const correctLabel = q.options[q.answer];
+        const cls = correct ? 'correct' : 'wrong';
+        const mark = correct ? '✓' : '✗';
+        return `<div class="review-item ${cls}">${mark} Q${i + 1}: You chose <strong>${chosenLabel}</strong>${correct ? '' : ` — correct: <strong>${correctLabel}</strong>`}</div>`;
+      }).join('');
+
+      document.getElementById('score-value').textContent = score;
+      const pct = (score / QUESTIONS.length) * 100;
+      let msg = 'Nice try — keep learning!';
+      if (pct === 100) msg = 'Perfect! You are a dry fruit expert!';
+      else if (pct >= 70) msg = 'Great job! Think • Guess • Win!';
+      else if (pct >= 50) msg = 'Good effort! Try again to beat your score.';
+
+      document.getElementById('results-message').textContent = msg;
+      document.getElementById('review-list').innerHTML = reviewHtml;
+
+      quizPanel.classList.add('panel--hidden');
+      resultsPanel.classList.remove('panel--hidden');
+    }
+
+    function resetQuiz() {
+      currentIndex = 0;
+      answers.fill(null);
+      resultsPanel.classList.add('panel--hidden');
+      quizPanel.classList.remove('panel--hidden');
+      renderQuestion();
+    }
+
+    btnPrev.addEventListener('click', () => {
+      if (currentIndex > 0) {
+        currentIndex -= 1;
+        renderQuestion();
+      }
+    });
+
+    btnNext.addEventListener('click', () => {
+      if (answers[currentIndex] === null) {
+        hint.textContent = 'Please select an option before continuing.';
+        hint.classList.add('warn');
+        return;
+      }
+      if (currentIndex < QUESTIONS.length - 1) {
+        currentIndex += 1;
+        renderQuestion();
+      } else {
+        showResults();
+      }
+    });
+
+    btnRetry.addEventListener('click', resetQuiz);
+
+    renderQuestion();
+  </script>
+</body>
+</html>
+
