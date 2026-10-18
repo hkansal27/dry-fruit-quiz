@@ -375,57 +375,107 @@
 
   <script>
     const QUESTIONS = [
-      {
-        text: 'Which dry fruit is known as the "King of Nuts"?',
-        options: ['Cashew', 'Almond', 'Walnut', 'Pistachio'],
-        answer: 0,
-      },
-      {
-        text: 'Which dry fruit is richest in Omega-3 fatty acids?',
-        options: ['Almond', 'Walnut', 'Raisin', 'Cashew'],
-        answer: 1,
-      },
-      {
-        text: 'Which one helps in better sleep and reduces stress?',
-        options: ['Walnut', 'Almond', 'Peanut', 'Pistachio'],
-        answer: 1,
-      },
-      {
-        text: 'Which nut is best for brain health?',
-        options: ['Cashew', 'Walnut', 'Peanut', 'Pistachio'],
-        answer: 1,
-      },
-      {
-        text: 'Which dry fruit is the natural source of iron?',
-        options: ['Cashew', 'Raisin', 'Walnut', 'Pistachio'],
-        answer: 1,
-      },
-      {
-        text: 'Which one is good for your heart?',
-        options: ['Walnut', 'Potato chips', 'Candy', 'Soda'],
-        answer: 0,
-      },
-      {
-        text: 'Which dry fruit is actually a fruit (not a nut)?',
-        options: ['Almond', 'Cashew', 'Raisin', 'Walnut'],
-        answer: 2,
-      },
-      {
-        text: 'Which spice is called "Red Gold"?',
-        options: ['Turmeric', 'Saffron', 'Cinnamon', 'Clove'],
-        answer: 1,
-      },
-      {
-        text: 'Which dry fruit is high in calcium?',
-        options: ['Dried Fig', 'Potato', 'Rice', 'Corn'],
-        answer: 0,
-      },
-      {
-        text: 'Which one is most commonly used in Indian sweets?',
-        options: ['Cashew', 'Olive', 'Soybean', 'Barley'],
-        answer: 0,
-      },
-    ];
+  {
+    text: 'Which nut is commonly known as the "King of Nuts"?',
+    options: ['Pista', 'Almond', 'Cashew', 'Walnut'],
+    answer: 2,
+  },
+  {
+    text: 'Which seed is richest in plant-based Omega-3 ALA?',
+    options: ['Pumpkin', 'Chia', 'Raisin', 'Cashew'],
+    answer: 1,
+  },
+  {
+    text: 'Which nut is particularly rich in Omega-3 ALA?',
+    options: ['Cashew', 'Pista', 'Walnut', 'Almond'],
+    answer: 2,
+  },
+  {
+    text: 'Which dry fruit provides quick energy due to its natural sugars?',
+    options: ['Dates', 'Walnut', 'Chia', 'Coconut'],
+    answer: 0,
+  },
+  {
+    text: 'Which nut is a good source of vitamin E?',
+    options: ['Raisin', 'Almond', 'Dates', 'Coconut'],
+    answer: 1,
+  },
+  {
+    text: 'Which seed is particularly rich in dietary fibre?',
+    options: ['Chia', 'Cashew', 'Pista', 'Kesar'],
+    answer: 0,
+  },
+  {
+    text: 'Which spice is known as the "Queen of Spices"?',
+    options: ['Kesar', 'Cardamom', 'Coconut', 'Pumpkin'],
+    answer: 1,
+  },
+  {
+    text: 'Which spice is often called "Red Gold"?',
+    options: ['Cardamom', 'Almond', 'Kesar', 'Cinnamon'],
+    answer: 2,
+  },
+  {
+    text: 'Raisins are made by drying which fruit?',
+    options: ['Dates', 'Grapes', 'Coconut', 'Almond'],
+    answer: 1,
+  },
+  {
+    text: 'Which of these is botanically a seed rather than a true nut?',
+    options: ['Almond', 'Cashew', 'Walnut', 'Pumpkin'],
+    answer: 3,
+  },
+  {
+    text: 'Which nut is commonly used to make creamy Indian gravies?',
+    options: ['Cashew', 'Raisin', 'Chia', 'Pumpkin'],
+    answer: 0,
+  },
+  {
+    text: 'Which seed is commonly roasted and eaten as a snack?',
+    options: ['Pumpkin', 'Kesar', 'Cardamom', 'Dates'],
+    answer: 0,
+  },
+  {
+    text: 'Which dry fruit is a good source of potassium?',
+    options: ['Dates', 'Almond oil', 'Kesar', 'Cardamom'],
+    answer: 0,
+  },
+  {
+    text: 'Which nut provides magnesium and healthy unsaturated fats?',
+    options: ['Cashew', 'Raisin', 'Dates', 'Kesar'],
+    answer: 0,
+  },
+  {
+    text: 'Which ingredient is extracted from almonds?',
+    options: ['Coconut milk', 'Almond oil', 'Kesar', 'Cardamom'],
+    answer: 1,
+  },
+  {
+    text: 'Which tropical fruit is used to make coconut milk?',
+    options: ['Coconut', 'Pista', 'Walnut', 'Raisin'],
+    answer: 0,
+  },
+  {
+    text: 'Which nut is commonly used to prepare pista kulfi?',
+    options: ['Almond', 'Cashew', 'Pista', 'Walnut'],
+    answer: 2,
+  },
+  {
+    text: 'Which of these is commonly soaked overnight and eaten at breakfast?',
+    options: ['Raisin', 'Dates', 'Almond', 'All of these'],
+    answer: 3,
+  },
+  {
+    text: 'Which spice has fragrant green pods and is widely used in Indian sweets?',
+    options: ['Kesar', 'Cardamom', 'Coconut', 'Pumpkin'],
+    answer: 1,
+  },
+  {
+    text: 'Which ingredient gives many Indian sweets a golden colour and rich aroma?',
+    options: ['Chia', 'Cashew', 'Kesar', 'Almond oil'],
+    answer: 2,
+  },
+];
 
     let currentIndex = 0;
     const answers = new Array(QUESTIONS.length).fill(null);
